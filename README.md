@@ -22,10 +22,6 @@ The following **optional** features are implemented:
 - [ ] A counter displays the user's current and longest streak of correct responses
 - [ ] A user can mark a card that they have mastered and have it removed from the pool of answers as well as added to a list of mastered cards
 
-The following **additional** features are implemented:
-
-* [ ] List anything else that you added to improve the site's functionality!
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented required features:
@@ -33,10 +29,6 @@ Here's a walkthrough of implemented required features:
 <img src='./SolarGif.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with ScreenToGif
-
-## Notes
-
-There was difficulty tracking the usestate of flashcards to know when they were flipped or not
 
 ## License
 
