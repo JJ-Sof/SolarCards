@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Flashcard from './components/Flashcard';
 import './App.css';
 
@@ -19,10 +19,6 @@ const App = () => {
   const [flashcards, setFlashcards] = useState(initialFlashcardsData);
   const [currentCard, setCurrentCard] = useState(0);
   const [currentText, setCurrentText] = useState('');
-
-  useEffect(() => {
-    handleChange();
-  }, [currentText, currentCard]);
 
   const handleFlip = () => {
     const updatedFlashcards = flashcards.map((card, index) => {
@@ -46,10 +42,10 @@ const App = () => {
     }
   };
 
-  const handleChange = () => {
+  const onSubmit = () => {
     const currentFlashcard = flashcards[currentCard];
-    const flashAnswer = currentFlashcard.answer.substring(8)
-    const isCorrect = currentText.trim().toLowerCase() === flashAnswer.trim().toLowerCase();
+    const flashAnswer = currentFlashcard.answer.substring(8).trim().toLowerCase();
+    const isCorrect = currentText.trim().toLowerCase() === flashAnswer;
     if (isCorrect) {
       document.getElementById('answer-input').classList.add('correct');
       document.getElementById('answer-input').classList.remove('incorrect');
@@ -73,9 +69,12 @@ const App = () => {
       <input
         id="answer-input"
         type='text'
-        onChange={(e) =>
-          setCurrentText(e.target.value)}
+        value={currentText}
+        onChange={(e) => {
+          setCurrentText(e.target.value);
+        }}
       />
+      <button className="change-card-button" type="submit" onClick={onSubmit}>Submit</button>
       <button className="change-card-button" onClick={handlePrevCard}>Previous Card</button>
       <button className="change-card-button" onClick={handleNextCard}>Next Card</button>
     </div>
