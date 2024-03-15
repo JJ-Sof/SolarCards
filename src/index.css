@@ -36,7 +36,7 @@ body {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); 
 }
 
-.next-card-button {
+.change-card-button {
   padding: 10px 20px;
   background-color: #007bff; 
   color: #fff; 
@@ -46,6 +46,14 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.next-card-button:hover {
+.change-card-button:hover {
   background-color: #0056b3; 
+}
+
+.correct {
+  outline: 2px solid green;
+}
+
+.incorrect {
+  outline: 2px solid red;
 }

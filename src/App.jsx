@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Flashcard from './components/Flashcard';
 import './App.css';
 
@@ -18,6 +18,11 @@ const initialFlashcardsData = [
 const App = () => {
   const [flashcards, setFlashcards] = useState(initialFlashcardsData);
   const [currentCard, setCurrentCard] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+
+  useEffect(() => {
+    handleChange();
+  }, [currentText, currentCard]);
 
   const handleFlip = () => {
     const updatedFlashcards = flashcards.map((card, index) => {
@@ -30,13 +35,30 @@ const App = () => {
   };
 
   const handleNextCard = () => {
-    let nextCardIndex;
-    do {
-      nextCardIndex = Math.floor(Math.random() * flashcards.length);
-    } while (nextCardIndex === currentCard); 
-  
-    setCurrentCard(nextCardIndex);
+    if (currentCard < initialFlashcardsData.length - 1) {
+      setCurrentCard(currentCard + 1);
+    }
   };
+  
+  const handlePrevCard = () => {
+    if (currentCard > 0) {
+      setCurrentCard(currentCard - 1);
+    }
+  };
+
+  const handleChange = () => {
+    const currentFlashcard = flashcards[currentCard];
+    const flashAnswer = currentFlashcard.answer.substring(8)
+    const isCorrect = currentText.trim().toLowerCase() === flashAnswer.trim().toLowerCase();
+    if (isCorrect) {
+      document.getElementById('answer-input').classList.add('correct');
+      document.getElementById('answer-input').classList.remove('incorrect');
+    } else {
+      document.getElementById('answer-input').classList.add('incorrect');
+      document.getElementById('answer-input').classList.remove('correct');
+    }
+  };
+  
 
   return (
     <div className="App">
@@ -47,7 +69,15 @@ const App = () => {
         flashcard={flashcards[currentCard]}
         handleClick={handleFlip}
       />
-      <button className="next-card-button" onClick={handleNextCard}>Next Card</button>
+      <h3>Enter your answer here: </h3>
+      <input
+        id="answer-input"
+        type='text'
+        onChange={(e) =>
+          setCurrentText(e.target.value)}
+      />
+      <button className="change-card-button" onClick={handlePrevCard}>Previous Card</button>
+      <button className="change-card-button" onClick={handleNextCard}>Next Card</button>
     </div>
   );
 }
